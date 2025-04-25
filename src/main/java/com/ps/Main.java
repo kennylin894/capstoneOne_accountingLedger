@@ -22,13 +22,31 @@ public class Main {
             switch (mainMenuCommand.toUpperCase())
             {
                 case "D":
-                    System.out.println("adding deposit");
+                    HelperMethods.addDepositMenuOptions();
+
+
+
+
+
+
                     break;
                 case "P":
-                    System.out.println("make payment");
+                    HelperMethods.makePaymentMenuOptions();
+
+
+
+
+
+
                     break;
                 case "L":
-                    Ledger.ledgerMenuOptions();
+                    HelperMethods.ledgerMenuOptions();
+
+
+
+
+
+
                     break;
                 default:
             }
