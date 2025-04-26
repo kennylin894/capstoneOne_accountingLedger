@@ -1,6 +1,9 @@
 package com.ps;
 
 import javax.naming.ldap.spi.LdapDnsProvider;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -68,5 +71,22 @@ public class Transaction {
         data.append(transaction.getVendor()).append(" | $");
         data.append(transaction.getAmount());
         return data.toString();
+    }
+
+    public void writeToFile(Transaction transaction)
+    {
+        try
+        {
+            FileWriter writer = new FileWriter("transaction.csv",true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            bufferedWriter.write(toFormatData(transaction));
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error writing to file.");
+        }
+
     }
 }
