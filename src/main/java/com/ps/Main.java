@@ -42,11 +42,6 @@ public class Main {
                 case "L":
                     HelperMethods.ledgerMenuOptions();
 
-
-
-
-
-
                     break;
                 default:
             }

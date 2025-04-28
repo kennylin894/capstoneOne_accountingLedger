@@ -60,15 +60,4 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-
-    public static String toFormatData(Transaction transaction)
-    {
-        StringBuilder data = new StringBuilder();
-        data.append(transaction.getDate()).append(" ");
-        data.append(transaction.getTime()).append(" | ");
-        data.append(transaction.getDescription()).append(" | ");
-        data.append(transaction.getVendor()).append(" | $");
-        data.append(transaction.getAmount());
-        return data.toString();
-    }
 }
