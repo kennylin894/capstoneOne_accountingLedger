@@ -78,6 +78,13 @@ public class HelperMethods {
         String vendor = Main.stringScanner.nextLine();
         System.out.println("Enter the total amount: ");
         String amount = Main.stringScanner.nextLine();
+        while(Double.parseDouble(amount) <= 0)
+        {
+            System.out.println("Invalid deposit, please try again.");
+            System.out.println("Enter the total amount: ");
+            amount = Main.stringScanner.nextLine();
+            System.out.println();
+        }
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
         Transaction transaction = new Transaction(date,time,description,vendor,Double.parseDouble(amount));
@@ -87,7 +94,24 @@ public class HelperMethods {
     }
 
     public static void makePaymentMenuOptions() {
-
+        System.out.println("Enter payment description: ");
+        String description = Main.stringScanner.nextLine();
+        System.out.println("Enter the vendor: ");
+        String vendor = Main.stringScanner.nextLine();
+        System.out.println("Enter the total amount: ");
+        String amount = Main.stringScanner.nextLine();
+        if(Double.parseDouble(amount) > 0)
+        {
+            Double strAmount;
+            strAmount = Double.parseDouble(amount) * -1;
+            amount = String.valueOf(strAmount);
+        }
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        Transaction transaction = new Transaction(date,time,description,vendor,Double.parseDouble(amount));
+        writeToFile(transaction);
+        System.out.println("Your payment has been successfully processed.");
+        System.out.println();
     }
 
     public static ArrayList<Transaction> readTransactionFile() {
@@ -130,7 +154,7 @@ public class HelperMethods {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         data.append(transaction.getTime().format(timeFormatter)).append("|");
         data.append(transaction.getDescription()).append("|");
-        data.append(transaction.getVendor()).append("|$");
+        data.append(transaction.getVendor()).append("|");
         data.append(transaction.getAmount());
         return data.toString();
     }
