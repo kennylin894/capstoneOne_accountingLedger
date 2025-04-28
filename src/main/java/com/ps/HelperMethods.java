@@ -20,12 +20,12 @@ public class HelperMethods {
 
     public static void ledgerMenuOptions() {
         String ledgerMenu;
-        System.out.println("Welcome to the ledger");
-        System.out.println("=====================");
         do {
+            System.out.println("Welcome to the ledger");
+            System.out.println("=====================");
             System.out.println("Please choose an option:");
             System.out.println("[A] All - (Display all enteries)");
-            System.out.println("[D] Deposits - (Display only the entries that are deposits into the account");
+            System.out.println("[D] Deposits - (Display only the entries that are deposits into the account)");
             System.out.println("[P] Payments - (Display only the negative entries or payments)");
             System.out.println("[R] Reports - (Search for reports)");
             System.out.println("[H] Home - (Return Home)");
@@ -65,10 +65,10 @@ public class HelperMethods {
                 System.out.println();
             } else if (ledgerMenu.equalsIgnoreCase("r")) {
 
-            } else {
+            } else if(!ledgerMenu.equalsIgnoreCase("h")){
                 System.out.println("Error, bad input try again.");
             }
-        } while (!ledgerMenu.equals("H"));
+        } while (!ledgerMenu.equalsIgnoreCase("H"));
     }
 
     public static void addDepositMenuOptions() {

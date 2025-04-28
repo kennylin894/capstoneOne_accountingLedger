@@ -10,9 +10,9 @@ public class Main {
     static Scanner menuScanner = new Scanner(System.in);
     public static void main(String[] args) {
         String mainMenuCommand;
-        System.out.println("Welcome to the Banking Home Screen");
-        System.out.println("==================================");
         do {
+            System.out.println("Welcome to the Banking Home Screen");
+            System.out.println("==================================");
             System.out.println("Please choose an option:");
             System.out.println("[D] Add Deposit");
             System.out.println("[P] Make Payment (Debit)");
