@@ -27,21 +27,12 @@ public class Main {
 
 
 
-
-
                     break;
                 case "P":
                     HelperMethods.makePaymentMenuOptions();
-
-
-
-
-
-
                     break;
                 case "L":
                     HelperMethods.ledgerMenuOptions();
-
                     break;
                 default:
             }

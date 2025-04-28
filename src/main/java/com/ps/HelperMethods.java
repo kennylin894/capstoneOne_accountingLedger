@@ -3,8 +3,10 @@ package com.ps;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class HelperMethods {
     static Comparator<Transaction> comparator = new Comparator<Transaction>() {
@@ -70,7 +72,18 @@ public class HelperMethods {
     }
 
     public static void addDepositMenuOptions() {
-
+        System.out.println("Enter deposit description: ");
+        String description = Main.stringScanner.nextLine();
+        System.out.println("Enter the vendor: ");
+        String vendor = Main.stringScanner.nextLine();
+        System.out.println("Enter the total amount: ");
+        String amount = Main.stringScanner.nextLine();
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        Transaction transaction = new Transaction(date,time,description,vendor,Double.parseDouble(amount));
+        writeToFile(transaction);
+        System.out.println("Your deposit has been successfully processed.");
+        System.out.println();
     }
 
     public static void makePaymentMenuOptions() {
@@ -99,12 +112,12 @@ public class HelperMethods {
         return listOfTransactions;
     }
 
-    public void writeToFile(Transaction transaction) {
+    public static void writeToFile(Transaction transaction) {
         try {
             FileWriter writer = new FileWriter("transaction.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            bufferedWriter.write(toFormatData(transaction));
             bufferedWriter.newLine();
+            bufferedWriter.write(toFormatData(transaction));
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Error writing to file.");
@@ -113,10 +126,11 @@ public class HelperMethods {
 
     public static String toFormatData(Transaction transaction) {
         StringBuilder data = new StringBuilder();
-        data.append(transaction.getDate()).append(" ");
-        data.append(transaction.getTime()).append(" | ");
-        data.append(transaction.getDescription()).append(" | ");
-        data.append(transaction.getVendor()).append(" | $");
+        data.append(transaction.getDate()).append("|");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        data.append(transaction.getTime().format(timeFormatter)).append("|");
+        data.append(transaction.getDescription()).append("|");
+        data.append(transaction.getVendor()).append("|$");
         data.append(transaction.getAmount());
         return data.toString();
     }
