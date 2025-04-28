@@ -28,6 +28,7 @@ public class HelperMethods {
             System.out.println("[R] Reports - (Search for reports)");
             System.out.println("[H] Home - (Return Home)");
             ledgerMenu = Main.stringScanner.nextLine();
+            //user wants to see all transactions
             if (ledgerMenu.equalsIgnoreCase("a")) {
                 System.out.println("These are all the transactions. (Newest on top)");
                 System.out.println("===============================================");
@@ -36,10 +37,30 @@ public class HelperMethods {
                     System.out.println(toFormatData(transaction));
                 }
                 System.out.println();
+            //user only wants to see deposits
             } else if (ledgerMenu.equalsIgnoreCase("d")) {
-
+                System.out.println("These are all the deposits. (Newest on top)");
+                System.out.println("=======================================");
+                for(Transaction transaction: readTransactionFile())
+                {
+                    if(transaction.getAmount() > 0)
+                    {
+                        System.out.println(toFormatData(transaction));
+                    }
+                }
+                System.out.println();
+            //user wants to see all payments
             } else if (ledgerMenu.equalsIgnoreCase("p")) {
-
+                System.out.println("These are all the payments. (Newest on top)");
+                System.out.println("===============================================");
+                for(Transaction transaction: readTransactionFile())
+                {
+                    if(transaction.getAmount() < 0)
+                    {
+                        System.out.println(toFormatData(transaction));
+                    }
+                }
+                System.out.println();
             } else if (ledgerMenu.equalsIgnoreCase("r")) {
 
             } else {
