@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class HelperMethods {
+    static LocalDate today = LocalDate.now();
     static Comparator<Transaction> comparator = new Comparator<Transaction>() {
         @Override
         public int compare(Transaction transaction1, Transaction transaction2) {
@@ -34,40 +35,35 @@ public class HelperMethods {
             if (ledgerMenu.equalsIgnoreCase("a")) {
                 System.out.println("These are all the transactions. (Newest on top)");
                 System.out.println("===============================================");
-                for(Transaction transaction: readTransactionFile())
-                {
+                for (Transaction transaction : readTransactionFile()) {
                     System.out.println(toFormatData(transaction));
                 }
                 System.out.println();
-            //user only wants to see deposits
+                //user only wants to see deposits
             } else if (ledgerMenu.equalsIgnoreCase("d")) {
                 System.out.println("These are all the deposits. (Newest on top)");
                 System.out.println("=======================================");
-                for(Transaction transaction: readTransactionFile())
-                {
-                    if(transaction.getAmount() > 0)
-                    {
+                for (Transaction transaction : readTransactionFile()) {
+                    if (transaction.getAmount() > 0) {
                         System.out.println(toFormatData(transaction));
                     }
                 }
                 System.out.println();
-            //user wants to see all payments
+                //user wants to see all payments
             } else if (ledgerMenu.equalsIgnoreCase("p")) {
                 System.out.println("These are all the payments. (Newest on top)");
                 System.out.println("===============================================");
-                for(Transaction transaction: readTransactionFile())
-                {
-                    if(transaction.getAmount() < 0)
-                    {
+                for (Transaction transaction : readTransactionFile()) {
+                    if (transaction.getAmount() < 0) {
                         System.out.println(toFormatData(transaction));
                     }
                 }
                 System.out.println();
-            }
-            else if (ledgerMenu.equalsIgnoreCase("r"))
-            {
+            } else if (ledgerMenu.equalsIgnoreCase("r")) {
                 int reportMenuInput;
                 do {
+                    System.out.println("Please choose a filtering option.");
+                    System.out.println("=================================");
                     System.out.println("[1] Month to Date");
                     System.out.println("[2] Previous Month");
                     System.out.println("[3] Year to Date");
@@ -75,31 +71,102 @@ public class HelperMethods {
                     System.out.println("[5] Search by vendor");
                     System.out.println("[0] Back to ledger");
                     reportMenuInput = Main.intScanner.nextInt();
-                    switch (reportMenuInput)
-                    {
-                        //show from start of this month -> today
+                    switch (reportMenuInput) {
+                        //show from start of this month -> todayv
                         case 1:
-                            LocalDate today  = LocalDate.now();
                             LocalDate firstDayOfMonth = today.withDayOfMonth(1);
-                            for(Transaction transaction: readTransactionFile())
-                            {
-                                if(!transaction.getDate().isBefore(firstDayOfMonth) && !transaction.getDate().isAfter(today))
-                                {
+                            System.out.println("Here are the reports from start of the month to today.");
+                            System.out.println("=====================================================");
+                            boolean found1 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (!transaction.getDate().isBefore(firstDayOfMonth) && !transaction.getDate().isAfter(today)) {
                                     System.out.println(toFormatData(transaction));
+                                    found1 = true;
                                 }
                             }
+                            if (!found1) {
+                                System.out.println("There are no reports found.");
+                            }
+                            System.out.println();
+                            break;
+                        //prev month to date
                         case 2:
-
-
+                            LocalDate firstDayPrevMonth = today.minusDays(1).withDayOfMonth(1);
+                            LocalDate lastDayPrevMonth = today.withDayOfMonth(1).minusDays(1);
+                            System.out.println("Here are the reports from previous month to today.");
+                            System.out.println("============================================");
+                            boolean found2 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (!transaction.getDate().isBefore(firstDayPrevMonth) && !transaction.getDate().isAfter(lastDayPrevMonth)) {
+                                    System.out.println(toFormatData(transaction));
+                                    found2 = true;
+                                }
+                            }
+                            if (!found2) {
+                                System.out.println("There are no reports found.");
+                            }
+                            System.out.println();
+                            break;
+                        //Year to date
                         case 3:
+                            LocalDate startOfYear = today.withDayOfYear(1);
+                            System.out.println("These are all the reports from year to date.");
+                            System.out.println("============================================");
+                            boolean found3 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (!transaction.getDate().isBefore(startOfYear) && !transaction.getDate().isAfter(today)) {
+                                    System.out.println(toFormatData(transaction));
+                                    found3 = true;
+                                }
+                            }
+                            if (!found3) {
+                                System.out.println("There are no reports found.");
+                            }
+                            System.out.println();
+                            break;
+                        //prev year
+                        case 4:
+                            int previousYear = today.getYear() - 1;
+                            LocalDate startOfPrevYear = LocalDate.of(previousYear, 1, 1);
+                            LocalDate endOfPrevYear = LocalDate.of(previousYear, 12, 31);
+                            System.out.println("These are all the reports from the previous year.");
+                            System.out.println("================================================");
+                            boolean found4 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (!transaction.getDate().isBefore(startOfPrevYear) && !transaction.getDate().isAfter(endOfPrevYear)) {
+                                    System.out.println(toFormatData(transaction));
+                                    found4 = true;
+                                }
+                            }
+                            if (!found4) {
+                                System.out.println("There are no reports found.");
+                            }
+                            System.out.println();
+                            break;
+                        //search by vendor
+                        case 5:
+                            System.out.println("Please enter the vendor: ");
+                            System.out.println("========================");
+                            String vendor = Main.stringScanner.nextLine();
+                            System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
+
+                            System.out.println("========================================================");
+                            boolean found5 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                                    System.out.println(toFormatData(transaction));
+                                    found5 = true;
+                                }
+                            }
+                            if (!found5) {
+                                System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
+
+                            }
+                            System.out.println();
+                            break;
                     }
-                } while(reportMenuInput != 0);
-
-
-
-
-
-            } else if(!ledgerMenu.equalsIgnoreCase("h")){
+                } while (reportMenuInput != 0);
+            } else if (!ledgerMenu.equalsIgnoreCase("h")) {
                 System.out.println("Error, bad input try again.");
             }
         } while (!ledgerMenu.equalsIgnoreCase("H"));
@@ -114,8 +181,7 @@ public class HelperMethods {
         String vendor = Main.stringScanner.nextLine();
         System.out.println("Enter the total amount: ");
         String amount = Main.stringScanner.nextLine();
-        while(Double.parseDouble(amount) <= 0)
-        {
+        while (Double.parseDouble(amount) <= 0) {
             System.out.println("Invalid deposit, please try again.");
             System.out.println("Enter the total amount: ");
             amount = Main.stringScanner.nextLine();
@@ -123,7 +189,7 @@ public class HelperMethods {
         }
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        Transaction transaction = new Transaction(date,time,description,vendor,Double.parseDouble(amount));
+        Transaction transaction = new Transaction(date, time, description, vendor, Double.parseDouble(amount));
         writeToFile(transaction);
         System.out.println("Your deposit has been successfully processed.");
         System.out.println();
@@ -138,19 +204,19 @@ public class HelperMethods {
         String vendor = Main.stringScanner.nextLine();
         System.out.println("Enter the total amount: ");
         String amount = Main.stringScanner.nextLine();
-        if(Double.parseDouble(amount) > 0)
-        {
+        if (Double.parseDouble(amount) > 0) {
             Double strAmount;
             strAmount = Double.parseDouble(amount) * -1;
             amount = String.valueOf(strAmount);
         }
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        Transaction transaction = new Transaction(date,time,description,vendor,Double.parseDouble(amount));
+        Transaction transaction = new Transaction(date, time, description, vendor, Double.parseDouble(amount));
         writeToFile(transaction);
         System.out.println("Your payment has been successfully processed.");
         System.out.println();
     }
+
 
     public static ArrayList<Transaction> readTransactionFile() {
         ArrayList<Transaction> listOfTransactions = new ArrayList<>();

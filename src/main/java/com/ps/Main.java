@@ -33,6 +33,6 @@ public class Main {
                 default:
             }
         } while (!mainMenuCommand.equalsIgnoreCase("x"));
-        System.out.println("Good Bye");
+        System.out.println("Thanks for using our Accounting Ledger Application!");
     }
 }
