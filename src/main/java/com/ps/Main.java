@@ -5,7 +5,7 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static Scanner doubleScanner = new Scanner(System.in);
+    static Scanner intScanner = new Scanner(System.in);
     static Scanner stringScanner = new Scanner(System.in);
     static Scanner menuScanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -23,10 +23,6 @@ public class Main {
             {
                 case "D":
                     HelperMethods.addDepositMenuOptions();
-
-
-
-
                     break;
                 case "P":
                     HelperMethods.makePaymentMenuOptions();

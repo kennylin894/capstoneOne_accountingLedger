@@ -21,7 +21,7 @@ public class HelperMethods {
     public static void ledgerMenuOptions() {
         String ledgerMenu;
         do {
-            System.out.println("Welcome to the ledger");
+            System.out.println("Welcome to the ledger screen.");
             System.out.println("=====================");
             System.out.println("Please choose an option:");
             System.out.println("[A] All - (Display all enteries)");
@@ -63,7 +63,41 @@ public class HelperMethods {
                     }
                 }
                 System.out.println();
-            } else if (ledgerMenu.equalsIgnoreCase("r")) {
+            }
+            else if (ledgerMenu.equalsIgnoreCase("r"))
+            {
+                int reportMenuInput;
+                do {
+                    System.out.println("[1] Month to Date");
+                    System.out.println("[2] Previous Month");
+                    System.out.println("[3] Year to Date");
+                    System.out.println("[4] Previous Year");
+                    System.out.println("[5] Search by vendor");
+                    System.out.println("[0] Back to ledger");
+                    reportMenuInput = Main.intScanner.nextInt();
+                    switch (reportMenuInput)
+                    {
+                        //show from start of this month -> today
+                        case 1:
+                            LocalDate today  = LocalDate.now();
+                            LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+                            for(Transaction transaction: readTransactionFile())
+                            {
+                                if(!transaction.getDate().isBefore(firstDayOfMonth) && !transaction.getDate().isAfter(today))
+                                {
+                                    System.out.println(toFormatData(transaction));
+                                }
+                            }
+                        case 2:
+
+
+                        case 3:
+                    }
+                } while(reportMenuInput != 0);
+
+
+
+
 
             } else if(!ledgerMenu.equalsIgnoreCase("h")){
                 System.out.println("Error, bad input try again.");
@@ -72,6 +106,8 @@ public class HelperMethods {
     }
 
     public static void addDepositMenuOptions() {
+        System.out.println("Welcome to the deposit screen.");
+        System.out.println("==============================");
         System.out.println("Enter deposit description: ");
         String description = Main.stringScanner.nextLine();
         System.out.println("Enter the vendor: ");
@@ -94,6 +130,8 @@ public class HelperMethods {
     }
 
     public static void makePaymentMenuOptions() {
+        System.out.println("Welcome to the payment screen.");
+        System.out.println("==============================");
         System.out.println("Enter payment description: ");
         String description = Main.stringScanner.nextLine();
         System.out.println("Enter the vendor: ");
