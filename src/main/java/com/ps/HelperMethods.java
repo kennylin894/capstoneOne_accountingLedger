@@ -28,7 +28,7 @@ public class HelperMethods {
             System.out.println("[A] All - (Display all enteries)");
             System.out.println("[D] Deposits - (Display only the entries that are deposits into the account)");
             System.out.println("[P] Payments - (Display only the negative entries or payments)");
-            System.out.println("[R] Reports - (Search for reports)");
+            System.out.println("[R] Reports - (Search for reports/Custom Search)");
             System.out.println("[H] Home - (Return Home)");
             ledgerMenu = Main.stringScanner.nextLine();
             //user wants to see all transactions
@@ -155,8 +155,7 @@ public class HelperMethods {
         } while (!ledgerMenu.equalsIgnoreCase("H"));
     }
 
-    public static void customSearchReportMenu()
-    {
+    public static void customSearchReportMenu() {
         int customSearchReportMenuCommand;
         do {
             System.out.println("Welcome to custom search.");
@@ -169,17 +168,16 @@ public class HelperMethods {
             System.out.println("[5] Amount");
             System.out.println("[0] Back");
             customSearchReportMenuCommand = Main.intScanner.nextInt();
-            switch (customSearchReportMenuCommand)
-            {
+            switch (customSearchReportMenuCommand) {
                 //start date
                 case 1:
-
+                    break;
                 //End date
                 case 2:
-
+                    break;
                 //Description
                 case 3:
-
+                    break;
                 //Vendor
                 case 4:
                     System.out.println("Please enter the vendor: ");
@@ -203,9 +201,77 @@ public class HelperMethods {
                     break;
                 //Amount
                 case 5:
-
+                    int greaterLessThanScanner;
+                    do {
+                        System.out.println("Would you like to see transactions: ");
+                        System.out.println("[1] Less than an amount");
+                        System.out.println("[2] Greater than an amount");
+                        System.out.println("[3] Equal to an amount");
+                        System.out.println("[0] Back");
+                        greaterLessThanScanner = Main.intScanner.nextInt();
+                        System.out.println("Please enter that value: ");
+                        double searchAmount = Main.intScanner.nextDouble();
+                        switch (greaterLessThanScanner) {
+                            //less than
+                            case 1:
+                                boolean found1 = false;
+                                System.out.println("These are all the transactions less than $" + searchAmount + ".");
+                                System.out.println("================================================================");
+                                for(Transaction transaction: readTransactionFile())
+                                {
+                                    if(transaction.getAmount() < searchAmount)
+                                    {
+                                        System.out.println(toFormatData(transaction));
+                                        found1 = true;
+                                    }
+                                }
+                                if(!found1)
+                                {
+                                    System.out.println("There were no transactions less than $" + searchAmount + ".");
+                                }
+                                break;
+                            //greater than
+                            case 2:
+                                boolean found2 = false;
+                                System.out.println("These are all the transactions greater than $" + searchAmount + ".");
+                                System.out.println("================================================================");
+                                for(Transaction transaction: readTransactionFile())
+                                {
+                                    if(transaction.getAmount() > searchAmount)
+                                    {
+                                        System.out.println(toFormatData(transaction));
+                                        found2 = true;
+                                    }
+                                }
+                                if(!found2)
+                                {
+                                    System.out.println("There were no transactions greater than $" + searchAmount + ".");
+                                }
+                                break;
+                            //equal
+                            case 3:
+                                boolean found3 = false;
+                                System.out.println("These are all the transactions equal to $" + searchAmount + ".");
+                                System.out.println("================================================================");
+                                for(Transaction transaction: readTransactionFile())
+                                {
+                                    if(transaction.getAmount() == searchAmount)
+                                    {
+                                        System.out.println(toFormatData(transaction));
+                                        found3 = true;
+                                    }
+                                }
+                                if(!found3)
+                                {
+                                    System.out.println("There were no transactions equal to $" + searchAmount + ".");
+                                }
+                                break;
+                        }
+                    }
+                    while (greaterLessThanScanner != 0);
+                    break;
             }
-        } while(customSearchReportMenuCommand != 0);
+        } while (customSearchReportMenuCommand != 0);
     }
 
     public static void addDepositMenuOptions() {
