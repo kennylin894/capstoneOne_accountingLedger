@@ -2,7 +2,6 @@ package com.ps;
 
 import java.util.Scanner;
 
-
 public class Main {
     static Scanner intScanner = new Scanner(System.in);
     static Scanner stringScanner = new Scanner(System.in);

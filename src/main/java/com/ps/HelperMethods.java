@@ -24,7 +24,7 @@ public class HelperMethods {
         String ledgerMenu;
         do {
             System.out.println("Welcome to the ledger screen.");
-            System.out.println("=====================");
+            System.out.println("=============================");
             System.out.println("Please choose an option:");
             System.out.println("[A] All - (Display all enteries)");
             System.out.println("[D] Deposits - (Display only the entries that are deposits into the account)");
@@ -43,7 +43,7 @@ public class HelperMethods {
                 //user only wants to see deposits
             } else if (ledgerMenu.equalsIgnoreCase("d")) {
                 System.out.println("These are all the deposits. (Newest on top)");
-                System.out.println("=======================================");
+                System.out.println("===========================================");
                 for (Transaction transaction : readTransactionFile()) {
                     if (transaction.getAmount() > 0) {
                         System.out.println(toFormatData(transaction));
@@ -53,7 +53,7 @@ public class HelperMethods {
                 //user wants to see all payments
             } else if (ledgerMenu.equalsIgnoreCase("p")) {
                 System.out.println("These are all the payments. (Newest on top)");
-                System.out.println("===============================================");
+                System.out.println("===========================================");
                 for (Transaction transaction : readTransactionFile()) {
                     if (transaction.getAmount() < 0) {
                         System.out.println(toFormatData(transaction));
@@ -78,7 +78,7 @@ public class HelperMethods {
                         case 1:
                             LocalDate firstDayOfMonth = today.withDayOfMonth(1);
                             System.out.println("Here are the reports from start of the month to today.");
-                            System.out.println("=====================================================");
+                            System.out.println("======================================================");
                             boolean found1 = false;
                             for (Transaction transaction : readTransactionFile()) {
                                 if (!transaction.getDate().isBefore(firstDayOfMonth) && !transaction.getDate().isAfter(today)) {
@@ -96,7 +96,7 @@ public class HelperMethods {
                             LocalDate firstDayPrevMonth = today.minusDays(1).withDayOfMonth(1);
                             LocalDate lastDayPrevMonth = today.withDayOfMonth(1).minusDays(1);
                             System.out.println("Here are the reports from previous month to today.");
-                            System.out.println("============================================");
+                            System.out.println("==================================================");
                             boolean found2 = false;
                             for (Transaction transaction : readTransactionFile()) {
                                 if (!transaction.getDate().isBefore(firstDayPrevMonth) && !transaction.getDate().isAfter(lastDayPrevMonth)) {
@@ -150,8 +150,16 @@ public class HelperMethods {
                             System.out.println("Please enter the vendor: ");
                             System.out.println("========================");
                             String vendor = Main.stringScanner.nextLine();
-                            System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
-                            System.out.println("========================================================");
+                            StringBuilder reportResults = new StringBuilder();
+                            reportResults.append("These are all reports under the vendor: ");
+                            reportResults.append("\"").append(vendor).append("\".");
+                            int resultLen = reportResults.toString().length();
+                            System.out.println(reportResults);
+                            for(int i = 0; i < resultLen; i++)
+                            {
+                                System.out.print("=");
+                            }
+                            System.out.println();
                             boolean found5 = false;
                             for (Transaction transaction : readTransactionFile()) {
                                 if (transaction.getVendor().equalsIgnoreCase(vendor)) {
@@ -161,7 +169,6 @@ public class HelperMethods {
                             }
                             if (!found5) {
                                 System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
-
                             }
                             System.out.println();
                             break;
@@ -205,7 +212,7 @@ public class HelperMethods {
         System.out.println("[5] Amount");
         String samount = Main.stringScanner.nextLine();
         System.out.println("These are all the records found.");
-        System.out.println("=================================");
+        System.out.println("================================");
         int count = 0;
         for(Transaction transaction: readTransactionFile())
         {
