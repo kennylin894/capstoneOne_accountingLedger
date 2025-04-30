@@ -68,7 +68,7 @@ public class HelperMethods {
                     System.out.println("[2] Previous Month");
                     System.out.println("[3] Year to Date");
                     System.out.println("[4] Previous Year");
-                    System.out.println("[5] Search by vendor");
+                    System.out.println("[5] Custom Search");
                     System.out.println("[0] Back to ledger");
                     reportMenuInput = Main.intScanner.nextInt();
                     switch (reportMenuInput) {
@@ -143,26 +143,9 @@ public class HelperMethods {
                             }
                             System.out.println();
                             break;
-                        //search by vendor
+                        //custom search
                         case 5:
-                            System.out.println("Please enter the vendor: ");
-                            System.out.println("========================");
-                            String vendor = Main.stringScanner.nextLine();
-                            System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
-
-                            System.out.println("========================================================");
-                            boolean found5 = false;
-                            for (Transaction transaction : readTransactionFile()) {
-                                if (transaction.getVendor().equalsIgnoreCase(vendor)) {
-                                    System.out.println(toFormatData(transaction));
-                                    found5 = true;
-                                }
-                            }
-                            if (!found5) {
-                                System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
-
-                            }
-                            System.out.println();
+                            customSearchReportMenu();
                             break;
                     }
                 } while (reportMenuInput != 0);
@@ -170,6 +153,59 @@ public class HelperMethods {
                 System.out.println("Error, bad input try again.");
             }
         } while (!ledgerMenu.equalsIgnoreCase("H"));
+    }
+
+    public static void customSearchReportMenu()
+    {
+        int customSearchReportMenuCommand;
+        do {
+            System.out.println("Welcome to custom search.");
+            System.out.println("=========================");
+            System.out.println("What would you like to search by today.");
+            System.out.println("[1] Start date");
+            System.out.println("[2] End date");
+            System.out.println("[3] Description");
+            System.out.println("[4] Vendor");
+            System.out.println("[5] Amount");
+            System.out.println("[0] Back");
+            customSearchReportMenuCommand = Main.intScanner.nextInt();
+            switch (customSearchReportMenuCommand)
+            {
+                //start date
+                case 1:
+
+                //End date
+                case 2:
+
+                //Description
+                case 3:
+
+                //Vendor
+                case 4:
+                    System.out.println("Please enter the vendor: ");
+                    System.out.println("========================");
+                    String vendor = Main.stringScanner.nextLine();
+                    System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
+
+                    System.out.println("========================================================");
+                    boolean found5 = false;
+                    for (Transaction transaction : readTransactionFile()) {
+                        if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                            System.out.println(toFormatData(transaction));
+                            found5 = true;
+                        }
+                    }
+                    if (!found5) {
+                        System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
+
+                    }
+                    System.out.println();
+                    break;
+                //Amount
+                case 5:
+
+            }
+        } while(customSearchReportMenuCommand != 0);
     }
 
     public static void addDepositMenuOptions() {
