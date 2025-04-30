@@ -1,10 +1,7 @@
 package com.ps;
 
-import javax.naming.ldap.spi.LdapDnsProvider;
-import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class Transaction {
     private LocalDate date;

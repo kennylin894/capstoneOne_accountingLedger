@@ -6,8 +6,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Scanner;
 
 public class HelperMethods {
     static LocalDate today = LocalDate.now();
