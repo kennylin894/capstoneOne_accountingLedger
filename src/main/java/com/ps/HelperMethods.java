@@ -153,8 +153,7 @@ public class HelperMethods {
                             reportResults.append("\"").append(vendor).append("\".");
                             int resultLen = reportResults.toString().length();
                             System.out.println(reportResults);
-                            for(int i = 0; i < resultLen; i++)
-                            {
+                            for (int i = 0; i < resultLen; i++) {
                                 System.out.print("=");
                             }
                             System.out.println();
@@ -192,15 +191,13 @@ public class HelperMethods {
         System.out.println("[1] Start date (YYYY-MM-DD)");
         String sdate = Main.stringScanner.nextLine();
         LocalDate startDate = null;
-        if(!sdate.isBlank())
-        {
+        if (!sdate.isBlank()) {
             startDate = LocalDate.parse(sdate);
         }
         System.out.println("[2] End date (YYYY-MM-DD)");
         String edate = Main.stringScanner.nextLine();
         LocalDate endDate = null;
-        if(!edate.isBlank())
-        {
+        if (!edate.isBlank()) {
             endDate = LocalDate.parse(edate);
         }
         System.out.println("[3] Description");
@@ -212,23 +209,18 @@ public class HelperMethods {
         System.out.println("These are all the records found.");
         System.out.println("================================");
         int count = 0;
-        for(Transaction transaction: readTransactionFile())
-        {
+        for (Transaction transaction : readTransactionFile()) {
             boolean matches = true;
-            if(startDate != null && transaction.getDate().isBefore(startDate))
-            {
+            if (startDate != null && transaction.getDate().isBefore(startDate)) {
                 matches = false;
             }
-            if(endDate != null && transaction.getDate().isAfter(endDate))
-            {
+            if (endDate != null && transaction.getDate().isAfter(endDate)) {
                 matches = false;
             }
-            if(!despcription.isBlank() && !transaction.getDescription().equalsIgnoreCase(despcription))
-            {
+            if (!despcription.isBlank() && !transaction.getDescription().equalsIgnoreCase(despcription)) {
                 matches = false;
             }
-            if(!vendor.isBlank() && !transaction.getVendor().equalsIgnoreCase(vendor))
-            {
+            if (!vendor.isBlank() && !transaction.getVendor().equalsIgnoreCase(vendor)) {
                 matches = false;
             }
             if (!samount.isBlank()) {
@@ -241,14 +233,12 @@ public class HelperMethods {
                     System.out.println("Invalid amount input.");
                 }
             }
-            if(matches)
-            {
+            if (matches) {
                 System.out.println(toFormatData(transaction));
                 count++;
             }
         }
-        if(count == 0)
-        {
+        if (count == 0) {
             System.out.println("No records were found.");
 
         }
@@ -274,7 +264,13 @@ public class HelperMethods {
         LocalTime time = LocalTime.now();
         Transaction transaction = new Transaction(date, time, description, vendor, Double.parseDouble(amount));
         writeToFile(transaction);
-        System.out.println("Your deposit has been successfully processed.");
+        StringBuilder depositMessage = new StringBuilder();
+        depositMessage.append("Your deposit of $").append(amount).append(" has been successfully processed.");
+        System.out.println(depositMessage);
+        for(int i = 0; i < depositMessage.toString().length() ; i++)
+        {
+            System.out.print("=");
+        }
         System.out.println();
     }
 
@@ -296,7 +292,13 @@ public class HelperMethods {
         LocalTime time = LocalTime.now();
         Transaction transaction = new Transaction(date, time, description, vendor, Double.parseDouble(amount));
         writeToFile(transaction);
-        System.out.println("Your payment has been successfully processed.");
+        StringBuilder paymentMessage = new StringBuilder();
+        paymentMessage.append("Your payment of $").append(amount).append(" has been successfully processed.");
+        System.out.println(paymentMessage);
+        for(int i = 0; i < paymentMessage.toString().length() ; i++)
+        {
+            System.out.print("=");
+        }
         System.out.println();
     }
 
