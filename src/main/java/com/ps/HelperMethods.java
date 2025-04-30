@@ -347,4 +347,91 @@ public class HelperMethods {
         data.append(transaction.getAmount());
         return data.toString();
     }
+
+    //new self made method
+    public static void summaryMenuOptions() {
+        int summaryMenuOptions;
+        do{
+            System.out.println("Welcome to the summary dashboard.");
+            System.out.println("=================================");
+            System.out.println("[1] Total Transactions");
+            System.out.println("[2] Sum of deposits");
+            System.out.println("[3] Sum of payments");
+            System.out.println("[0] Exit");
+            summaryMenuOptions = Main.menuScanner.nextInt();
+            int transactionMenuOptions;
+            switch (summaryMenuOptions)
+            {
+                case 1:
+                    System.out.println("Please choose an option: ");
+                    System.out.println("========================");
+                    System.out.println("[1] Total number of transactions (In general)");
+                    System.out.println("[2] Total number of transactions this month");
+                    System.out.println("[3] Total number of transactions this year");
+                    System.out.println("[4] Exit");
+                    transactionMenuOptions = Main.intScanner.nextInt();
+                    if(transactionMenuOptions == 1)
+                    {
+                        int count = 0;
+                        for(Transaction transaction: readTransactionFile())
+                        {
+                            count++;
+                        }
+                        System.out.println("There is a total of " + count + " transactions.");
+                        System.out.println();
+                    }
+                    else if(transactionMenuOptions == 2)
+                    {
+                        int count = 0;
+                        LocalDate now = LocalDate.now();
+                        for(Transaction transaction: readTransactionFile())
+                        {
+                            if(transaction.getDate().getMonthValue() == now.getMonthValue())
+                            {
+                                count++;
+                            }
+                        }
+                        StringBuilder totalTransactionsMonth = new StringBuilder();
+                        totalTransactionsMonth.append("There is a total of ").append(count).append(" transactions during the month of ");
+                        totalTransactionsMonth.append(now.getMonth().toString()).append(".");
+                        System.out.println(totalTransactionsMonth);
+                        for(int i = 0; i < totalTransactionsMonth.toString().length();i++)
+                        {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    }
+                    else if(transactionMenuOptions == 3)
+                    {
+                        int count = 0;
+                        LocalDate now = LocalDate.now();
+                        for(Transaction transaction: readTransactionFile())
+                        {
+                            if(transaction.getDate().getYear() == now.getYear())
+                            {
+                                count++;
+                            }
+                        }
+                        StringBuilder totalTransactionsYear = new StringBuilder();
+                        totalTransactionsYear.append("There is a total of ").append(count).append(" transactions during the year: ");
+                        totalTransactionsYear.append(now.getYear()).append(".");
+                        System.out.println(totalTransactionsYear);
+                        for(int i = 0; i < totalTransactionsYear.toString().length();i++)
+                        {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    }
+                    else if(transactionMenuOptions == 4)
+                    {
+                        break;
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        } while(summaryMenuOptions != 0);
+    }
 }

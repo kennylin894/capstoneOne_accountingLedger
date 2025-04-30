@@ -16,6 +16,8 @@ public class Main {
             System.out.println("[D] Add Deposit");
             System.out.println("[P] Make Payment (Debit)");
             System.out.println("[L] Ledger");
+            //self added
+            System.out.println("[S] Summary");
             System.out.println("[X] Exit");
             mainMenuCommand = menuScanner.nextLine();
             switch (mainMenuCommand.toUpperCase()) {
@@ -30,6 +32,9 @@ public class Main {
                 case "L":
                     HelperMethods.ledgerMenuOptions();
                     System.out.println();
+                    break;
+                case "S":
+                    HelperMethods.summaryMenuOptions();
                     break;
                 default:
             }
