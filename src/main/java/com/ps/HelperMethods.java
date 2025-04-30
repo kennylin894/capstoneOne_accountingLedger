@@ -180,8 +180,11 @@ public class HelperMethods {
     public static void customSearchReportMenu() {
         System.out.println("Welcome to custom search.");
         System.out.println("=========================");
-        System.out.println("Please enter these values 1 by 1.");
-        System.out.println("[1] Start date (YYYY-MM-DD");
+        System.out.println("Enter values you want to filter.");
+        System.out.println("If you dont want to enter a value, please press enter.");
+        System.out.println("It will skip that filter.");
+        System.out.println();
+        System.out.println("[1] Start date (YYYY-MM-DD)");
         String sdate = Main.stringScanner.nextLine();
         LocalDate startDate = null;
         if(!sdate.isBlank())
@@ -200,10 +203,13 @@ public class HelperMethods {
         System.out.println("[4] Vendor");
         String vendor = Main.stringScanner.nextLine();
         System.out.println("[5] Amount");
-        Double amount = Main.intScanner.nextDouble();
-        boolean matches = true;
+        String samount = Main.stringScanner.nextLine();
+        System.out.println("These are all the records found.");
+        System.out.println("=================================");
+        int count = 0;
         for(Transaction transaction: readTransactionFile())
         {
+            boolean matches = true;
             if(startDate != null && transaction.getDate().isBefore(startDate))
             {
                 matches = false;
@@ -220,20 +226,28 @@ public class HelperMethods {
             {
                 matches = false;
             }
-            if(amount != null && transaction.getAmount() != amount)
-            {
-                matches = false;
+            if (!samount.isBlank()) {
+                try {
+                    double amount = Double.parseDouble(samount);
+                    if (transaction.getAmount() != amount) {
+                        matches = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid amount input.");
+                }
             }
-
             if(matches)
             {
                 System.out.println(toFormatData(transaction));
-            }
-            else
-            {
-                System.out.println("There were no records found.");
+                count++;
             }
         }
+        if(count == 0)
+        {
+            System.out.println("No records were found.");
+
+        }
+        System.out.println();
     }
 
     public static void addDepositMenuOptions() {
