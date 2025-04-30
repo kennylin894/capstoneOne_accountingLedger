@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Scanner;
 
 public class HelperMethods {
@@ -68,7 +69,8 @@ public class HelperMethods {
                     System.out.println("[2] Previous Month");
                     System.out.println("[3] Year to Date");
                     System.out.println("[4] Previous Year");
-                    System.out.println("[5] Custom Search");
+                    System.out.println("[5] Vendor");
+                    System.out.println("[6] Custom Search");
                     System.out.println("[0] Back to ledger");
                     reportMenuInput = Main.intScanner.nextInt();
                     switch (reportMenuInput) {
@@ -143,8 +145,28 @@ public class HelperMethods {
                             }
                             System.out.println();
                             break;
-                        //custom search
+                        //vendor search
                         case 5:
+                            System.out.println("Please enter the vendor: ");
+                            System.out.println("========================");
+                            String vendor = Main.stringScanner.nextLine();
+                            System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
+                            System.out.println("========================================================");
+                            boolean found5 = false;
+                            for (Transaction transaction : readTransactionFile()) {
+                                if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                                    System.out.println(toFormatData(transaction));
+                                    found5 = true;
+                                }
+                            }
+                            if (!found5) {
+                                System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
+
+                            }
+                            System.out.println();
+                            break;
+                        //custom search
+                        case 6:
                             customSearchReportMenu();
                             break;
                     }
@@ -156,122 +178,62 @@ public class HelperMethods {
     }
 
     public static void customSearchReportMenu() {
-        int customSearchReportMenuCommand;
-        do {
-            System.out.println("Welcome to custom search.");
-            System.out.println("=========================");
-            System.out.println("What would you like to search by today.");
-            System.out.println("[1] Start date");
-            System.out.println("[2] End date");
-            System.out.println("[3] Description");
-            System.out.println("[4] Vendor");
-            System.out.println("[5] Amount");
-            System.out.println("[0] Back");
-            customSearchReportMenuCommand = Main.intScanner.nextInt();
-            switch (customSearchReportMenuCommand) {
-                //start date
-                case 1:
-                    break;
-                //End date
-                case 2:
-                    break;
-                //Description
-                case 3:
-                    break;
-                //Vendor
-                case 4:
-                    System.out.println("Please enter the vendor: ");
-                    System.out.println("========================");
-                    String vendor = Main.stringScanner.nextLine();
-                    System.out.println("These are all reports under the vendor: \"" + vendor + "\".");
-
-                    System.out.println("========================================================");
-                    boolean found5 = false;
-                    for (Transaction transaction : readTransactionFile()) {
-                        if (transaction.getVendor().equalsIgnoreCase(vendor)) {
-                            System.out.println(toFormatData(transaction));
-                            found5 = true;
-                        }
-                    }
-                    if (!found5) {
-                        System.out.println("There are no reports from vendor: \"" + vendor + "\" found.");
-
-                    }
-                    System.out.println();
-                    break;
-                //Amount
-                case 5:
-                    int greaterLessThanScanner;
-                    do {
-                        System.out.println("Would you like to see transactions: ");
-                        System.out.println("[1] Less than an amount");
-                        System.out.println("[2] Greater than an amount");
-                        System.out.println("[3] Equal to an amount");
-                        System.out.println("[0] Back");
-                        greaterLessThanScanner = Main.intScanner.nextInt();
-                        System.out.println("Please enter that value: ");
-                        double searchAmount = Main.intScanner.nextDouble();
-                        switch (greaterLessThanScanner) {
-                            //less than
-                            case 1:
-                                boolean found1 = false;
-                                System.out.println("These are all the transactions less than $" + searchAmount + ".");
-                                System.out.println("================================================================");
-                                for(Transaction transaction: readTransactionFile())
-                                {
-                                    if(transaction.getAmount() < searchAmount)
-                                    {
-                                        System.out.println(toFormatData(transaction));
-                                        found1 = true;
-                                    }
-                                }
-                                if(!found1)
-                                {
-                                    System.out.println("There were no transactions less than $" + searchAmount + ".");
-                                }
-                                break;
-                            //greater than
-                            case 2:
-                                boolean found2 = false;
-                                System.out.println("These are all the transactions greater than $" + searchAmount + ".");
-                                System.out.println("================================================================");
-                                for(Transaction transaction: readTransactionFile())
-                                {
-                                    if(transaction.getAmount() > searchAmount)
-                                    {
-                                        System.out.println(toFormatData(transaction));
-                                        found2 = true;
-                                    }
-                                }
-                                if(!found2)
-                                {
-                                    System.out.println("There were no transactions greater than $" + searchAmount + ".");
-                                }
-                                break;
-                            //equal
-                            case 3:
-                                boolean found3 = false;
-                                System.out.println("These are all the transactions equal to $" + searchAmount + ".");
-                                System.out.println("================================================================");
-                                for(Transaction transaction: readTransactionFile())
-                                {
-                                    if(transaction.getAmount() == searchAmount)
-                                    {
-                                        System.out.println(toFormatData(transaction));
-                                        found3 = true;
-                                    }
-                                }
-                                if(!found3)
-                                {
-                                    System.out.println("There were no transactions equal to $" + searchAmount + ".");
-                                }
-                                break;
-                        }
-                    }
-                    while (greaterLessThanScanner != 0);
-                    break;
+        System.out.println("Welcome to custom search.");
+        System.out.println("=========================");
+        System.out.println("Please enter these values 1 by 1.");
+        System.out.println("[1] Start date (YYYY-MM-DD");
+        String sdate = Main.stringScanner.nextLine();
+        LocalDate startDate = null;
+        if(!sdate.isBlank())
+        {
+            startDate = LocalDate.parse(sdate);
+        }
+        System.out.println("[2] End date (YYYY-MM-DD)");
+        String edate = Main.stringScanner.nextLine();
+        LocalDate endDate = null;
+        if(!edate.isBlank())
+        {
+            endDate = LocalDate.parse(edate);
+        }
+        System.out.println("[3] Description");
+        String despcription = Main.stringScanner.nextLine();
+        System.out.println("[4] Vendor");
+        String vendor = Main.stringScanner.nextLine();
+        System.out.println("[5] Amount");
+        Double amount = Main.intScanner.nextDouble();
+        boolean matches = true;
+        for(Transaction transaction: readTransactionFile())
+        {
+            if(startDate != null && transaction.getDate().isBefore(startDate))
+            {
+                matches = false;
             }
-        } while (customSearchReportMenuCommand != 0);
+            if(endDate != null && transaction.getDate().isAfter(endDate))
+            {
+                matches = false;
+            }
+            if(!despcription.isBlank() && !transaction.getDescription().equalsIgnoreCase(despcription))
+            {
+                matches = false;
+            }
+            if(!vendor.isBlank() && !transaction.getVendor().equalsIgnoreCase(vendor))
+            {
+                matches = false;
+            }
+            if(amount != null && transaction.getAmount() != amount)
+            {
+                matches = false;
+            }
+
+            if(matches)
+            {
+                System.out.println(toFormatData(transaction));
+            }
+            else
+            {
+                System.out.println("There were no records found.");
+            }
+        }
     }
 
     public static void addDepositMenuOptions() {
