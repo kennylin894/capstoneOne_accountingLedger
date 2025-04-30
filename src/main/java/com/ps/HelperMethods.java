@@ -267,8 +267,7 @@ public class HelperMethods {
         StringBuilder depositMessage = new StringBuilder();
         depositMessage.append("Your deposit of $").append(amount).append(" has been successfully processed.");
         System.out.println(depositMessage);
-        for(int i = 0; i < depositMessage.toString().length() ; i++)
-        {
+        for (int i = 0; i < depositMessage.toString().length(); i++) {
             System.out.print("=");
         }
         System.out.println();
@@ -295,8 +294,7 @@ public class HelperMethods {
         StringBuilder paymentMessage = new StringBuilder();
         paymentMessage.append("Your payment of $").append(amount).append(" has been successfully processed.");
         System.out.println(paymentMessage);
-        for(int i = 0; i < paymentMessage.toString().length() ; i++)
-        {
+        for (int i = 0; i < paymentMessage.toString().length(); i++) {
             System.out.print("=");
         }
         System.out.println();
@@ -351,7 +349,7 @@ public class HelperMethods {
     //new self made method
     public static void summaryMenuOptions() {
         int summaryMenuOptions;
-        do{
+        do {
             System.out.println("Welcome to the summary dashboard.");
             System.out.println("=================================");
             System.out.println("[1] Total Transactions");
@@ -360,8 +358,7 @@ public class HelperMethods {
             System.out.println("[0] Exit");
             summaryMenuOptions = Main.menuScanner.nextInt();
             int transactionMenuOptions;
-            switch (summaryMenuOptions)
-            {
+            switch (summaryMenuOptions) {
                 case 1:
                     System.out.println("Please choose an option: ");
                     System.out.println("========================");
@@ -370,45 +367,39 @@ public class HelperMethods {
                     System.out.println("[3] Total number of transactions this year");
                     System.out.println("[4] Exit");
                     transactionMenuOptions = Main.intScanner.nextInt();
-                    if(transactionMenuOptions == 1)
-                    {
+                    //total trans in gen
+                    if (transactionMenuOptions == 1) {
                         int count = 0;
-                        for(Transaction transaction: readTransactionFile())
-                        {
+                        for (Transaction transaction : readTransactionFile()) {
                             count++;
                         }
                         System.out.println("There is a total of " + count + " transactions.");
                         System.out.println();
                     }
-                    else if(transactionMenuOptions == 2)
-                    {
+                    //total trans month
+                    else if (transactionMenuOptions == 2) {
                         int count = 0;
                         LocalDate now = LocalDate.now();
-                        for(Transaction transaction: readTransactionFile())
-                        {
-                            if(transaction.getDate().getMonthValue() == now.getMonthValue())
-                            {
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getMonthValue() == now.getMonthValue()) {
                                 count++;
                             }
                         }
                         StringBuilder totalTransactionsMonth = new StringBuilder();
-                        totalTransactionsMonth.append("There is a total of ").append(count).append(" transactions during the month of ");
-                        totalTransactionsMonth.append(now.getMonth().toString()).append(".");
+                        totalTransactionsMonth.append("There is a total of ").append(count).append(" during the month of ");
+                        totalTransactionsMonth.append(now.getMonth().toString()).append(" ").append(now.getYear()).append(".");
                         System.out.println(totalTransactionsMonth);
-                        for(int i = 0; i < totalTransactionsMonth.toString().length();i++)
-                        {
+                        for (int i = 0; i < totalTransactionsMonth.toString().length(); i++) {
                             System.out.print("=");
                         }
                         System.out.println();
                     }
-                    else if(transactionMenuOptions == 3)
-                    {
+                    //total trans year
+                    else if (transactionMenuOptions == 3) {
                         int count = 0;
                         LocalDate now = LocalDate.now();
-                        for(Transaction transaction: readTransactionFile())
-                        {
-                            if(transaction.getDate().getYear() == now.getYear())
-                            {
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getYear() == now.getYear()) {
                                 count++;
                             }
                         }
@@ -416,22 +407,83 @@ public class HelperMethods {
                         totalTransactionsYear.append("There is a total of ").append(count).append(" transactions during the year: ");
                         totalTransactionsYear.append(now.getYear()).append(".");
                         System.out.println(totalTransactionsYear);
-                        for(int i = 0; i < totalTransactionsYear.toString().length();i++)
-                        {
+                        for (int i = 0; i < totalTransactionsYear.toString().length(); i++) {
                             System.out.print("=");
                         }
                         System.out.println();
-                    }
-                    else if(transactionMenuOptions == 4)
-                    {
+                    } else if (transactionMenuOptions == 4) {
                         break;
                     }
                     break;
                 case 2:
+                    System.out.println("Please choose an option: ");
+                    System.out.println("========================");
+                    System.out.println("[1] Total sum of deposits (In general)");
+                    System.out.println("[2] Total sum of deposits this month");
+                    System.out.println("[3] Total sum of deposits this year");
+                    System.out.println("[4] Exit");
+                    transactionMenuOptions = Main.intScanner.nextInt();
+                    //sum in gen
+                    if (transactionMenuOptions == 1) {
+                        double sum = 0;
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getAmount() > 0) {
+                                sum += transaction.getAmount();
+                            }
+                        }
+                        System.out.printf("The total sum of deposits is: $%.2f%n", sum);
+                        System.out.println();
+                    }
+                    //sum in month
+                    else if (transactionMenuOptions == 2) {
+                        double sum = 0;
+                        LocalDate now = LocalDate.now();
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getMonthValue() == now.getMonthValue()) {
+                                if (transaction.getDate().getYear() == now.getYear()) {
+                                    if (transaction.getAmount() > 0) {
+                                        sum += transaction.getAmount();
+                                    }
+                                }
+                            }
+                        }
+                        StringBuilder totalSumMonth = new StringBuilder();
+                        totalSumMonth.append("The total sum of deposits is: $").append((String.format("%.2f", sum))).append(" during the month of ");
+                        totalSumMonth.append(now.getMonth().toString()).append(" ").append(now.getYear()).append(".");
+                        System.out.println(totalSumMonth);
+                        for (int i = 0; i < totalSumMonth.toString().length(); i++) {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    }
+                    //sum in year
+                    else if (transactionMenuOptions == 3) {
+                        double sum = 0;
+                        LocalDate now = LocalDate.now();
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getYear() == now.getYear()) {
+                                if (transaction.getAmount() > 0) {
+                                    sum += transaction.getAmount();
+                                }
+                            }
+                        }
+                        StringBuilder totalSumYear = new StringBuilder();
+                        totalSumYear.append("The total sum of deposits is: $").append((String.format("%.2f", sum))).append(" during the year :");
+                        totalSumYear.append(now.getYear()).append(".");
+                        System.out.println(totalSumYear);
+                        for (int i = 0; i < totalSumYear.toString().length(); i++) {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    }
+                    //exit
+                    else if (transactionMenuOptions == 4) {
+                        break;
+                    }
                     break;
                 case 3:
                     break;
             }
-        } while(summaryMenuOptions != 0);
+        } while (summaryMenuOptions != 0);
     }
 }

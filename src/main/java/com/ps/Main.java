@@ -35,6 +35,7 @@ public class Main {
                     break;
                 case "S":
                     HelperMethods.summaryMenuOptions();
+                    System.out.println();
                     break;
                 default:
             }
