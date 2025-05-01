@@ -39,7 +39,7 @@ Below are the options available in the banking ledger application. Each section 
 
 ![img_1.png](img_1.png)
 
-<span style="color:green;">This image shows that the deposit transaction is now also reflected in "transaction.csv"</span>
+<span style="color:green;">*This image shows that the deposit transaction is now also reflected in "transaction.csv"*</span>
 
 ![img_2.png](img_2.png)
 
@@ -49,7 +49,7 @@ Below are the options available in the banking ledger application. Each section 
 
 ![img_3.png](img_3.png)
 
-<span style="color:green;">This image shows that the payment transaction is now also reflected in "transaction.csv"</span>
+<span style="color:green;">*This image shows that the payment transaction is now also reflected in "transaction.csv"*</span>
 
 ![img_4.png](img_4.png)
 
