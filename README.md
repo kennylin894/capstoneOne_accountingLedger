@@ -39,7 +39,7 @@ Below are the options available in the banking ledger application. Each section 
 
 ![img_1.png](img_1.png)
 
-*This image shows that the deposit transaction is now also reflected on the "transaction.csv"*
+<span style="color:green;">This image shows that the deposit transaction is now also reflected in "transaction.csv"</span>
 
 ![img_2.png](img_2.png)
 
@@ -49,7 +49,7 @@ Below are the options available in the banking ledger application. Each section 
 
 ![img_3.png](img_3.png)
 
-*This image shows that the payment transaction is now also reflected on the "transaction.csv"*'
+<span style="color:green;">This image shows that the payment transaction is now also reflected in "transaction.csv"</span>
 
 ![img_4.png](img_4.png)
 
@@ -69,7 +69,38 @@ Below are the options available in the banking ledger application. Each section 
 
 ### 4. **Summary [S]** 
 
-*Here’s the "Summary" option, which shows the financial summary of transactions and balances.*
+*Here’s the "Summary" option, which shows the financial summary of transactions and payments.*
 
 ![img_8.png](img_8.png)
 
+---
+## 🚀 How to Run
+
+> ✅ Make sure you’re using **Java 17 or higher**.  
+> 📂 The program will read from and write to a file named `transactions.csv` in the root directory.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/java-banking-ledger.git
+   cd java-banking-ledger"
+
+2. Navigate to Main and run the program
+
+![img_9.png](img_9.png)
+
+3. Make sure your data in transaction.csv is in this format
+
+![img_10.png](img_10.png)
+
+--------
+
+## 🙌 Final Notes
+Thank you for checking out the Java Banking Ledger!  
+Feel free to fork, clone, and expand upon it. 🛠️
+
+----
+
+## 📫 Contact & Socials
+
+- **Email**: klin@appdev.yearup.org
+- **GitHub**: [@Kennylin894](https://github.com/kennylin894)
+- **LinkedIn**: [@kennay-lin](https://www.linkedin.com/in/kennay-lin/)
