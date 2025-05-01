@@ -355,7 +355,7 @@ public class HelperMethods {
             System.out.println("[T] Total Transactions");
             System.out.println("[D] Sum of deposits");
             System.out.println("[P] Sum of payments");
-            System.out.println("[X] Exit");
+            System.out.println("[H] Home");
             summaryMenuOptions = Main.stringScanner.nextLine().toUpperCase();
             int totalMenuOptions;
             switch (summaryMenuOptions) {
@@ -540,12 +540,12 @@ public class HelperMethods {
                         }
                         System.out.println();
                     }
-                case "X":
+                case "H":
                     return;
                 default:
                     System.out.println("Bad input, please try again.");
             }
         }
-        while (summaryMenuOptions.equalsIgnoreCase("x"));
+        while (summaryMenuOptions.equalsIgnoreCase("h"));
     }
 }
