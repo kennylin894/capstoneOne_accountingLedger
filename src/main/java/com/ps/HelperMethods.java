@@ -357,7 +357,7 @@ public class HelperMethods {
             System.out.println("[3] Sum of payments");
             System.out.println("[0] Exit");
             summaryMenuOptions = Main.menuScanner.nextInt();
-            int transactionMenuOptions;
+            int totalMenuOptions;
             switch (summaryMenuOptions) {
                 case 1:
                     System.out.println("Please choose an option: ");
@@ -366,9 +366,9 @@ public class HelperMethods {
                     System.out.println("[2] Total number of transactions this month");
                     System.out.println("[3] Total number of transactions this year");
                     System.out.println("[4] Exit");
-                    transactionMenuOptions = Main.intScanner.nextInt();
+                    totalMenuOptions = Main.intScanner.nextInt();
                     //total trans in gen
-                    if (transactionMenuOptions == 1) {
+                    if (totalMenuOptions == 1) {
                         int count = 0;
                         for (Transaction transaction : readTransactionFile()) {
                             count++;
@@ -377,7 +377,7 @@ public class HelperMethods {
                         System.out.println();
                     }
                     //total trans month
-                    else if (transactionMenuOptions == 2) {
+                    else if (totalMenuOptions == 2) {
                         int count = 0;
                         LocalDate now = LocalDate.now();
                         for (Transaction transaction : readTransactionFile()) {
@@ -395,7 +395,7 @@ public class HelperMethods {
                         System.out.println();
                     }
                     //total trans year
-                    else if (transactionMenuOptions == 3) {
+                    else if (totalMenuOptions == 3) {
                         int count = 0;
                         LocalDate now = LocalDate.now();
                         for (Transaction transaction : readTransactionFile()) {
@@ -411,7 +411,7 @@ public class HelperMethods {
                             System.out.print("=");
                         }
                         System.out.println();
-                    } else if (transactionMenuOptions == 4) {
+                    } else if (totalMenuOptions == 4) {
                         break;
                     }
                     break;
@@ -422,9 +422,9 @@ public class HelperMethods {
                     System.out.println("[2] Total sum of deposits this month");
                     System.out.println("[3] Total sum of deposits this year");
                     System.out.println("[4] Exit");
-                    transactionMenuOptions = Main.intScanner.nextInt();
+                    totalMenuOptions = Main.intScanner.nextInt();
                     //sum in gen
-                    if (transactionMenuOptions == 1) {
+                    if (totalMenuOptions == 1) {
                         double sum = 0;
                         for (Transaction transaction : readTransactionFile()) {
                             if (transaction.getAmount() > 0) {
@@ -435,7 +435,7 @@ public class HelperMethods {
                         System.out.println();
                     }
                     //sum in month
-                    else if (transactionMenuOptions == 2) {
+                    else if (totalMenuOptions == 2) {
                         double sum = 0;
                         LocalDate now = LocalDate.now();
                         for (Transaction transaction : readTransactionFile()) {
@@ -457,7 +457,7 @@ public class HelperMethods {
                         System.out.println();
                     }
                     //sum in year
-                    else if (transactionMenuOptions == 3) {
+                    else if (totalMenuOptions == 3) {
                         double sum = 0;
                         LocalDate now = LocalDate.now();
                         for (Transaction transaction : readTransactionFile()) {
@@ -477,11 +477,73 @@ public class HelperMethods {
                         System.out.println();
                     }
                     //exit
-                    else if (transactionMenuOptions == 4) {
+                    else if (totalMenuOptions == 4) {
                         break;
                     }
                     break;
                 case 3:
+                    System.out.println("Please choose an option: ");
+                    System.out.println("========================");
+                    System.out.println("[1] Total payments (In general)");
+                    System.out.println("[2] Total payments this month");
+                    System.out.println("[3] Total payments this year");
+                    System.out.println("[4] Exit");
+                    totalMenuOptions = Main.intScanner.nextInt();
+                    //sum in gen
+                    if (totalMenuOptions == 1) {
+                        double sum = 0;
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getAmount() < 0) {
+                                sum += transaction.getAmount();
+                            }
+                        }
+                        System.out.printf("The total sum of payments is: $%.2f%n", sum);
+                        System.out.println();
+                    }
+                    //sum in month
+                    else if (totalMenuOptions == 2) {
+                        double sum = 0;
+                        LocalDate now = LocalDate.now();
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getMonthValue() == now.getMonthValue()) {
+                                if (transaction.getDate().getYear() == now.getYear()) {
+                                    if (transaction.getAmount() > 0) {
+                                        sum += transaction.getAmount();
+                                    }
+                                }
+                            }
+                        }
+                        StringBuilder totalSumMonth = new StringBuilder();
+                        totalSumMonth.append("The total sum of payments is: $").append((String.format("%.2f", sum))).append(" during the month of ");
+                        totalSumMonth.append(now.getMonth().toString()).append(" ").append(now.getYear()).append(".");
+                        System.out.println(totalSumMonth);
+                        for (int i = 0; i < totalSumMonth.toString().length(); i++) {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    } else if (totalMenuOptions == 3) {
+                        double sum = 0;
+                        LocalDate now = LocalDate.now();
+                        for (Transaction transaction : readTransactionFile()) {
+                            if (transaction.getDate().getYear() == now.getYear()) {
+                                if (transaction.getAmount() > 0) {
+                                    sum += transaction.getAmount();
+                                }
+                            }
+                        }
+                        StringBuilder totalSumYear = new StringBuilder();
+                        totalSumYear.append("The total sum of payments is: $").append((String.format("%.2f", sum))).append(" during the year :");
+                        totalSumYear.append(now.getYear()).append(".");
+                        System.out.println(totalSumYear);
+                        for (int i = 0; i < totalSumYear.toString().length(); i++) {
+                            System.out.print("=");
+                        }
+                        System.out.println();
+                    }
+                    //exit
+                    else if (totalMenuOptions == 4) {
+                        break;
+                    }
                     break;
             }
         } while (summaryMenuOptions != 0);
