@@ -11,10 +11,9 @@ Welcome to the **Java Banking Ledger** – a simple yet powerful command-line to
 
 - 📄 Load transactions from `transactions.csv`
 - 📋 View **all**, **deposit-only**, or **payment-only** transactions
-- 🧾 Filter by **vendor name**
+- 🧾 **Custom** filtering system
 - 🔢 View totals: number and value of deposits/payments
 - 📆 Track total transactions for **this month** or **this year**
-- 💵 All currency values are rounded to **two decimal places**
 
 ---
 
@@ -34,4 +33,3 @@ Welcome to the **Java Banking Ledger** – a simple yet powerful command-line to
 
 ```bash
 git clone https://github.com/kennylin894/banking-ledger-java.git
-cd banking-ledger-java
