@@ -1,35 +1,27 @@
-# 💰 Java Banking Ledger CLI Application
+<h1 align="center">💳 Java Banking Ledger</h1>
+<h5 align="center">By: Kenny Lin</h5>
 
-Welcome to the **Java Banking Ledger** – a simple yet powerful command-line tool for managing and analyzing your financial transactions directly from a CSV file. 🚀
-#### By: Kenny Lin
+<p align="center">
+  A command-line Java app to manage your financial transactions with elegance and ease. ✨
+</p>
 
----
-
-## 📦 Features
-
-✨ Manage your finances with ease:
-
-- 📄 Load transactions from `transactions.csv`
-- 📋 View **all**, **deposit-only**, or **payment-only** transactions
-- 🧾 **Custom** filtering system
-- 🔢 View totals: number and value of deposits/payments
-- 📆 Track total transactions for **this month** or **this year**
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-17+-red?style=flat-square&logo=java">
+  <img src="https://img.shields.io/badge/CLI-App-blue?style=flat-square&logo=console">
+  <img src="https://img.shields.io/badge/File%20I%2FO-CSV-green?style=flat-square&logo=filezilla">
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+## 🌟 Features
 
-- 🔹 Java 17+
-- 🔹 Object-Oriented Programming
-- 🔹 Java Date & Time API
-- 🔹 File I/O with CSV parsing
-- 🔹 Command-Line Interface (CLI)
+✅ Load transactions from a CSV file  
+📊 View all, deposit-only, or payment-only transactions  
+🔎 Filter by **vendor**  
+📆 Track totals for **this month** and **this year**  
+💸 Clean 2-decimal rounding for money display  
+🛡️ Error handling and input validation
 
 ---
 
-## 🚀 Getting Started
 
-### 🔧 1. Clone the Repository
-
-```bash
-git clone https://github.com/kennylin894/banking-ledger-java.git

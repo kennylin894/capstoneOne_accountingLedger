@@ -348,18 +348,18 @@ public class HelperMethods {
 
     //new self made method
     public static void summaryMenuOptions() {
-        int summaryMenuOptions;
+        String summaryMenuOptions;
         do {
             System.out.println("Welcome to the summary dashboard.");
             System.out.println("=================================");
-            System.out.println("[1] Total Transactions");
-            System.out.println("[2] Sum of deposits");
-            System.out.println("[3] Sum of payments");
-            System.out.println("[0] Exit");
-            summaryMenuOptions = Main.menuScanner.nextInt();
+            System.out.println("[T] Total Transactions");
+            System.out.println("[D] Sum of deposits");
+            System.out.println("[P] Sum of payments");
+            System.out.println("[X] Exit");
+            summaryMenuOptions = Main.stringScanner.nextLine().toUpperCase();
             int totalMenuOptions;
             switch (summaryMenuOptions) {
-                case 1:
+                case "T":
                     System.out.println("Please choose an option: ");
                     System.out.println("========================");
                     System.out.println("[1] Total number of transactions (In general)");
@@ -415,7 +415,7 @@ public class HelperMethods {
                         break;
                     }
                     break;
-                case 2:
+                case "D":
                     System.out.println("Please choose an option: ");
                     System.out.println("========================");
                     System.out.println("[1] Total sum of deposits (In general)");
@@ -481,7 +481,7 @@ public class HelperMethods {
                         break;
                     }
                     break;
-                case 3:
+                case "P":
                     System.out.println("Please choose an option: ");
                     System.out.println("========================");
                     System.out.println("[1] Total payments (In general)");
@@ -507,7 +507,7 @@ public class HelperMethods {
                         for (Transaction transaction : readTransactionFile()) {
                             if (transaction.getDate().getMonthValue() == now.getMonthValue()) {
                                 if (transaction.getDate().getYear() == now.getYear()) {
-                                    if (transaction.getAmount() > 0) {
+                                    if (transaction.getAmount() < 0) {
                                         sum += transaction.getAmount();
                                     }
                                 }
@@ -526,7 +526,7 @@ public class HelperMethods {
                         LocalDate now = LocalDate.now();
                         for (Transaction transaction : readTransactionFile()) {
                             if (transaction.getDate().getYear() == now.getYear()) {
-                                if (transaction.getAmount() > 0) {
+                                if (transaction.getAmount() < 0) {
                                     sum += transaction.getAmount();
                                 }
                             }
@@ -540,12 +540,12 @@ public class HelperMethods {
                         }
                         System.out.println();
                     }
-                    //exit
-                    else if (totalMenuOptions == 4) {
-                        break;
-                    }
-                    break;
+                case "X":
+                    return;
+                default:
+                    System.out.println("Bad input, please try again.");
             }
-        } while (summaryMenuOptions != 0);
+        }
+        while (summaryMenuOptions.equalsIgnoreCase("x"));
     }
 }
