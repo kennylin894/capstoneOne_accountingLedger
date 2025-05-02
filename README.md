@@ -84,9 +84,9 @@ Below are the options available in the banking ledger application. Each section 
 > ✅ Make sure you’re using **Java 17 or higher**.  
 > 📂 The program will read from and write to a file named `transactions.csv` in the root directory.
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/java-banking-ledger.git
-   cd java-banking-ledger"
+   
+   **paste this to clone**
+   https://github.com/kennylin894/capstoneOne_accountingLedger.git
 
 2. Navigate to Main and run the program
 
