@@ -18,7 +18,8 @@
 ✅ Load transactions from a CSV file  
 💾 Save deposits and payments directly to the CSV file  
 📊 View all, deposit-only, or payment-only transactions  
-🔎 Custom filtering system  
+📅 Sorts based on most recent transactions (newest on top)  
+🔎 Custom searching/filtering system  
 📆 Track totals (deposits/payments) for **this month** and **this year**  
 🛡️ Error handling and input validation
 
@@ -59,6 +60,10 @@ Below are the options available in the banking ledger application. Each section 
 *This image displays the "Ledger" option, where users can view all transactions in the ledger.*
 
 ![img_5.png](img_5.png)
+
+#### <span style="color:yellow;">*Shows all the transactions in order, newest on top.*</span>
+
+![img_11.png](img_11.png)
 
 #### <span style="color:yellow;"> *Custom Ledger Search* </span>
 

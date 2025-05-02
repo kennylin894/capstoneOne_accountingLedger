@@ -10,6 +10,7 @@ import java.util.Comparator;
 public class HelperMethods {
     static LocalDate today = LocalDate.now();
     static Comparator<Transaction> comparator = new Comparator<Transaction>() {
+        //lexicographical matches the chronological order or newest date so this sorts it
         @Override
         public int compare(Transaction transaction1, Transaction transaction2) {
             String dateTime1 = transaction1.getDate() + " " + transaction1.getTime();
@@ -58,7 +59,11 @@ public class HelperMethods {
                     }
                 }
                 System.out.println();
-            } else if (ledgerMenu.equalsIgnoreCase("r")) {
+
+            }
+            //user wants to see reports
+            else if (ledgerMenu.equalsIgnoreCase("r"))
+            {
                 int reportMenuInput;
                 do {
                     System.out.println("Please choose a filtering option.");
@@ -210,10 +215,18 @@ public class HelperMethods {
         System.out.println("================================");
         int count = 0;
         for (Transaction transaction : readTransactionFile()) {
+            /*instead of using a lot of ifs, I made the custom sorting algorithm this way
+            basically if the value is not null (user entered a value they want to search by)
+            we check that value in that specific category (ex. user enters "amazon" as vendor)*/
             boolean matches = true;
+            /*if user entered a start date, and the transaction were looking at HAS a date that is before
+            //the date the user entered, it means this transaction were looking at doesnt meet the criteria, so this
+            transaction doesn't get printed out*/
             if (startDate != null && transaction.getDate().isBefore(startDate)) {
                 matches = false;
             }
+            /*if user entered an end date, and if the date is after the end date we know this trans is not filtered to
+            the users needs*/
             if (endDate != null && transaction.getDate().isAfter(endDate)) {
                 matches = false;
             }
@@ -233,6 +246,21 @@ public class HelperMethods {
                     System.out.println("Invalid amount input.");
                 }
             }
+            /* so lets so the user entered only "amazon" as the vendor, it goes down the if statements, it only does the vendor if
+            since all the other values were empty since the user skipped them so we dont check them. When we get to the vendor
+            check if basically ask first
+            1. Did the user give us a value for vendor?
+            2. If so does any of the transactions match the vendor amazon?
+            Ex.
+            2025-04-20|10:30:00|referral bonus|StartupX|300.00
+            2025-05-01|15:38:46|Computer|Amazon|1000.0
+            The ifs would run through the first transaction and check only the vendor and since the vendor doesnt match
+            amazon the first trans is skipped and not printed since it failed the match (if there is one match = false
+            we know this isnt what we want)
+            Now for the second one it checks the vendor and the name names so it doesnt get flagged as false so matches
+            doesnt turn false meaning we print this transaction since it passed all the checks.
+            Hopefully this explanation was good or helped in understanding this a little bit.
+            */
             if (matches) {
                 System.out.println(toFormatData(transaction));
                 count++;
@@ -300,7 +328,6 @@ public class HelperMethods {
         System.out.println();
     }
 
-
     public static ArrayList<Transaction> readTransactionFile() {
         ArrayList<Transaction> listOfTransactions = new ArrayList<>();
         try {
@@ -346,7 +373,7 @@ public class HelperMethods {
         return data.toString();
     }
 
-    //new self made method
+    //new selfmade method
     public static void summaryMenuOptions() {
         String summaryMenuOptions;
         do {
