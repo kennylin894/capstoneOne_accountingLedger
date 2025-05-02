@@ -18,7 +18,7 @@
 ✅ Load transactions from a CSV file  
 💾 Save deposits and payments directly to the CSV file  
 📊 View all, deposit-only, or payment-only transactions  
-🔎 Filter by **vendor**  
+🔎 Custom filtering system  
 📆 Track totals (deposits/payments) for **this month** and **this year**  
 🛡️ Error handling and input validation
 
